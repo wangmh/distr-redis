@@ -1,0 +1,2 @@
+Sending 20000 ‘set’ commands … done! Took 1.126 seconds, that is 17761 commands/second
+Sending 20000 ‘get’ commands … done! Took 1.124 seconds, that is 17793 commands/second

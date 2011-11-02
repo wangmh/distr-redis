@@ -63,6 +63,10 @@ int main(int argc, char **argv)
 		}
 
 	}
+<<<<<<< HEAD
+=======
+	redis_reply_st *reply = NULL;
+>>>>>>> af63872fa2d847e7929e85914300cf829b56a6c7
 	redis_client = redis_client_init(config_path);
 
 	int i;
