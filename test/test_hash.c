@@ -1,4 +1,4 @@
-#include "../redis_client.h"
+#include "redis_client.h"
 
 #include <stdio.h>
 #include <string.h>

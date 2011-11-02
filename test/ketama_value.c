@@ -5,8 +5,8 @@
  *      Author: saint
  */
 
-#include "../common.h"
-#include "../redis_client.h"
+#include "common.h"
+#include "redis_client.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

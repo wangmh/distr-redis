@@ -5,7 +5,7 @@
  *      Author: saint
  */
 
-#include "../redis_feed_api.h"
+#include "redis_feed_api.h"
 
 #include <stdio.h>
 #include <string.h>

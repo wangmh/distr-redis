@@ -1,4 +1,4 @@
-#include "../redis_client.h"
+#include "redis_client.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -39,145 +39,14 @@ int main(int argc, char *argv[])
 	if (NULL == redis_client)
 		printf("error\n");
 	char *str = "hello i'm wangmh";
-<<<<<<< HEAD
 
 	char*keys[2] =
 	{ "{wangminghua@gozap.com}_follows", "wangminghua@gozap.com" };
-=======
-	reply = redis_set(redis_client, "wangminghua@gozap.com", str);
-	if (reply)
-	{
-		if (reply->type == REDIS_REPLY_STATUS)
-		{
-			printf("%s\n", reply->str);
-		}
-		else
-		{
-			printf("error\n");
-		}
-	}
-	else
-	{
-		printf("net work error\n");
-	}
-	freeReply(reply);
-
-	redis_set(redis_client, "{wangminghua@gozap.com}_follows", "test_{}");
-
-	reply = redis_get(redis_client, "wangminghua@gozap.com");
-	if (reply)
-	{
-		if (reply->type == REDIS_REPLY_STRING)
-		{
-			printf("%s\n", reply->str);
-		}
-		else
-		{
-			printf("error\n");
-		}
-	}
-	else
-	{
-		printf("net work error\n");
-	}
-	freeReply(reply);
-
-	reply = redis_get(redis_client, "{wangminghua@gozap.com}_follows");
-	if (reply)
-	{
-		if (reply->type == REDIS_REPLY_STRING)
-		{
-			printf("%s\n", reply->str);
-		}
-		else
-		{
-			printf("error\n");
-		}
-	}
-	else
-	{
-		printf("net work error\n");
-	}
-	freeReply(reply);
-
-	printf("test mget\n");
-	char*keys[2] =
-	{ "{wangminghua@gozap.com}_follows", "wangminghua@gozap.com" };
-	reply = redis_mget(redis_client, keys, 2);
-	if (reply)
-	{
-		if (reply->type == REDIS_REPLY_ARRAY)
-		{
-			int i = 0;
-			printf("%ld\n", reply->elements);
-			while (i < reply->elements)
-			{
-				printf(" mget (%d) %s\n", i, reply->element[i]->str);
-				i++;
-			}
-		}
-		else
-		{
-			printf("error\n");
-		}
-	}
-	else
-	{
-		printf("net work error\n");
-	}
-	freeReply(reply);
-	char key[10240] =
-	{ '1' };
-	memset(key, '1', sizeof(key));
-	key[10239] = '\0';
-
-	printf("----------------------test hash\n");
-
-	reply = redis_hset(redis_client, "testhash", key, "wangmh");
-	if (reply)
-	{
-		if (reply->type == REDIS_REPLY_INTEGER)
-		{
-			printf("hset ret %lld\n", reply->integer);
-		}
-		else
-		{
-			printf("error\n");
-		}
-	}
-	else
-	{
-		printf("net work error\n");
-	}
-	freeReply(reply);
-
-	reply = redis_hget(redis_client, "testhash", "name");
-	if (reply)
-	{
-		if (reply->type == REDIS_REPLY_STRING)
-		{
-			printf("hset ret %s\n", reply->str);
-			assert(strcmp(reply->str , "wangmh") == 0);
-		}
-		else
-		{
-			printf("error\n");
-		}
-	}
-	else
-	{
-		printf("net work error\n");
-	}
-	freeReply(reply);
->>>>>>> af63872fa2d847e7929e85914300cf829b56a6c7
 
 
 	reply = redis_query(redis_client, "set %s %s ", "wangminghua@gozap.com", "12");
 	freeReply(reply);
-<<<<<<< HEAD
 	sleep(5);
-=======
->>>>>>> af63872fa2d847e7929e85914300cf829b56a6c7
 
 	reply = redis_query(redis_client, "get %s  ", "wangminghua@gozap.com");
 	if (reply)

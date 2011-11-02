@@ -12,7 +12,7 @@
  *      Author: saint
  */
 
-#include "../redis_link_api.h"
+#include "redis_link_api.h"
 
 #include <stdio.h>
 #include <string.h>
