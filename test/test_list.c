@@ -37,7 +37,13 @@ int main(int argc, char *argv[]) {
 		}
 
 	}
-
+	
+	if(strlen(config_path) == 0){
+		/*snprintf(config_path, sizeof(config_path), "%s", "./redis.conf");*/
+                printf("usage: ./%s -f xxx.conf", PROGRAME);
+		return 1;
+        }
+	
 	char *key = "{wangminghua@gozap.com}_list";
 
 	redis_client = redis_client_init(config_path);
