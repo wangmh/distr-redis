@@ -264,6 +264,11 @@ static char *get_key(const char *cmd)
 		return NULL;
 	char *key = (char*) calloc(sizeof(char), end - begin);
 	snprintf(key, end - begin, "%s", begin);
+	if( strlen(key) < 1 ){
+                free(key);
+                key = NULL;
+                return NULL;
+        }
 	redis_log(L_DEBUG, "get key is %s", key);
 
 	return key;
