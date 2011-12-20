@@ -48,7 +48,11 @@ int main(int argc, char *argv[]) {
 
 	redis_client = redis_client_init(config_path);
 	if (NULL == redis_client)
-		printf("error\n");
+	{
+		printf("redis_client connect error,please look log for detail \n");
+		exit(-1);
+		
+	}
 
 	redis_return_st rc;
 	int i = redis_lpush(redis_client, "{wangminghua@gozap.com}_list", "hi", &rc);
