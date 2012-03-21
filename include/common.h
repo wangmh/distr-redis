@@ -95,19 +95,16 @@ int redis_server_conn_pool_push(connection_pool_entry *item);
 connection_pool_entry *redis_server_conn_pool_pop(redis_conn_pool_st *pool,
 		int block);
 
-redis_client_config_st* redis_client_conf_init(const char *config_path);
+redis_return_st redis_return_status(redis_client_st *redis_client, int argc, const char **argv);
 
+int redis_return_integer(redis_client_st *redis_client, int argc, const char **argv, redis_return_st *rc);
 
-
-int redis_return_integer(redis_client_st *redis_client, const char *cmd,
+char *redis_return_str(redis_client_st *redis_client,  int argc, const char **argv,
 		redis_return_st *rc);
-
-char *redis_return_str(redis_client_st *redis_client, const char *cmd,
-		redis_return_st *rc);
-int redis_return_muti(redis_client_st *redis_client,const char *cmd, char ***elements,  redis_return_st *rc);
+int redis_return_muti(redis_client_st *redis_client, int argc, const char **argv, char ***elements,  redis_return_st *rc);
 
 
-redis_return_st redis_return_status(redis_client_st *redis_client, const char *cmd);
+
 redis_reply_st *redis_mget(redis_client_st *redis_client, char **keys, int len);
 
 redis_reply_st *_redis_set(redis_client_st *redis_client, const char *key,

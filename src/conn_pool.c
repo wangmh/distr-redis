@@ -94,9 +94,8 @@ redis_conn_pool_st* initialize_redis_server_conn_pool(const char *host,
 	}
 	if (ii != initial)
 	{
-		redis_log(L_ERR, " server %s:%d can't reach", host, port);
-		free_redis_server_conn_pool(pool);
-		return NULL;
+		redis_log(L_ERR, "there are some servers can't reach");
+		exit(-1);
 	}
 
 	return pool;

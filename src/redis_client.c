@@ -136,7 +136,7 @@ static void parse_redis_server(char *value, char *hostname, int len, int *port)
 }
 
 //初始化到后端的servers的链接
-static int initialize_redis_servers(redis_client_st *redis_client)
+static void initialize_redis_servers(redis_client_st *redis_client)
 {
 
 	if (NULL == redis_client)
@@ -158,13 +158,12 @@ static int initialize_redis_servers(redis_client_st *redis_client)
 		{
 			g_hash_table_insert(redis_client->redis_servers, server->key, pool);
 		}
-		else
-		{
-			return -1;
-		}
 	}
-	return 0;
-
+	if (i != conf->servers_count)
+	{
+		redis_log(L_ERR, "conns hash create wrong\n");
+		exit(1);
+	}
 
 }
 
@@ -314,16 +313,13 @@ static redis_client_st* initialize_redis_client(redis_client_config_st *conf)
 	}
 	redis_client->conf = conf;
 	initialize_redis_ketama(redis_client);
-	if(-1 == initialize_redis_servers(redis_client)){
-		redis_client_free(redis_client);
-		return NULL;
+	initialize_redis_servers(redis_client);
+	redis_err_fp = fopen(conf->redis_err_file, "a+");
+	if (redis_err_fp == NULL)
+	{
+		redis_log(L_ERR, "open redis_err_file %s error", conf->redis_err_file);
+		exit(-1);
 	}
-//	redis_err_fp = fopen(conf->redis_err_file, "a+");
-//	if (redis_err_fp == NULL)
-//	{
-//		redis_log(L_ERR, "open redis_err_file %s error", conf->redis_err_file);
-//		exit(-1);
-//	}
 	return redis_client;
 }
 

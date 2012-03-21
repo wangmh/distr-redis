@@ -17,7 +17,7 @@ endif
 
 TARGETS = libredisclient.a 
 
-OBJ = redis_client.o ketama.o config.o  redis_log.o conn_pool.o redis_feed_api.o common.o redis_link_api.o redis_list.o redis_string.o redis_hash.o
+OBJ = redis_client.o ketama.o config.o  redis_log.o conn_pool.o redis_feed_api.o common.o redis_link_api.o redis_list.o redis_string.o redis_hash.o redis_datoutie_link_api.o
 
 all: $(TARGETS)
 
@@ -26,8 +26,8 @@ all: $(TARGETS)
 
 libredisclient.a: $(OBJ) 
 	$(AR) crsv  $@ $^
-	mkdir -p ../libs
-	cp -f libredisclient.a ../libs
+	mkdir -p ../lib
+	cp -f libredisclient.a ../lib
 libredisclient.so: $(OBJ)
 	$(CC) $(SHAREDLIB_LINK_OPTIONS)$@ -o $@ $^
 install: 
