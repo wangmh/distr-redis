@@ -50,12 +50,12 @@ int main(int argc, char *argv[]) {
 	redis_client = redis_client_init(config_path);
 	if (NULL == redis_client)
 		printf("error\n");
-
-	redis_return_st rc = redis_set(redis_client, key, "hello");
+	char * avg = "hello asdfasdf asdfas";
+	redis_return_st rc = redis_set(redis_client, key, avg);
 	assert(rc == REDIS_SUCCESS);
 	char *rt = redis_get(redis_client, key, &rc);
 	assert(rc == REDIS_SUCCESS);
-	assert(strcmp(rt, "hello") == 0);
+	assert(strcmp(rt, avg) == 0);
 	redis_client_free(redis_client);
 	return 1;
 

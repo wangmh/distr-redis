@@ -14,9 +14,9 @@ redis_return_st redis_set(redis_client_st *redis_client, const char *key, const 
 		return REDIS_FAILURE;
 	}
 	redis_return_st rc;
-	char *cmd = generate_key("set %s %s", key, value);
-	rc = redis_return_status(redis_client, cmd);
-	free_and_nil(cmd);
+	int argc = 3;
+	const char *argv[3] = {"SET", key, value};
+	rc = redis_return_status(redis_client, argc, argv);
 	return rc;
 }
 
@@ -29,8 +29,8 @@ char *redis_get(redis_client_st *redis_client, const char *key, redis_return_st 
 		return NULL;
 	}
 	char *rt = NULL;
-	char *cmd = generate_key("get %s", key);
-	rt = redis_return_str(redis_client, cmd, rc);
-	free_and_nil(cmd);
+	int argc = 2;
+	const char *argv[2] = {"GET", key};
+	rt = redis_return_str(redis_client, argc, argv, rc);
 	return rt;
 }

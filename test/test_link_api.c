@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
 	reply
 			= redis_query(redis_client,
 					"sismember wangminghua@gozap.com_following_yexiaowei@gozap.com  2233");
-	assert(reply->integer == 1);
+	assert(reply->integer == 0);
 	freeReply(reply);
 	printf("* ");
 

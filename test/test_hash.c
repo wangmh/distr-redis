@@ -44,11 +44,11 @@ int main(int argc, char *argv[])
 	char *field1 = "field1";
 	char *field2 = "field2";
 	redis_hdel(redis_client, key, field1,&rc);
-	int ret =	redis_hdel(redis_client, key, field1,&rc);
+	int ret =redis_hdel(redis_client, key, field1,&rc);
 	assert(ret == 0);
 	ret = redis_hset(redis_client, key, field1, "121", &rc);
 	assert(ret == 1);
-	redis_hdel(redis_client, key, field2,&rc);
+	redis_hdel(redis_client, key, field2, &rc);
 	ret = redis_hincrby(redis_client, key, field2, 1, &rc);
 	assert(ret = 1);
 	ret = redis_hkeys(redis_client, key, &elements, &rc);

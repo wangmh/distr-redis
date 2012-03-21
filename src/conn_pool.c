@@ -7,7 +7,7 @@
 #include"common.h"
 
 struct timeval timeout =
-{ 3, 500000 }; // 1.5 seconds
+{ 10, 500000 }; // 1.5 seconds
 
 
 static void mutex_enter(pthread_mutex_t *mutex)

@@ -19,14 +19,14 @@ generate_key(const char *format, ...)
 	return ret;
 }
 
-int redis_return_integer(redis_client_st *redis_client, const char *cmd, redis_return_st *rc)
+int redis_return_integer(redis_client_st *redis_client,  int argc, const char **argv, redis_return_st *rc)
 {
 	redis_return_st ret = REDIS_FAILURE;
 	int rt = -1;
 	redis_reply_st *reply = NULL;
-	if (redis_client != NULL && cmd != NULL)
+	if (redis_client != NULL && argv != NULL)
 	{
-		reply = redis_query(redis_client, cmd);
+		reply = redis_query_argv(redis_client, argc, argv);
 		if (reply == NULL)
 		{
 			ret = REDIS_CONNECTION_FAILURE;
@@ -40,18 +40,21 @@ int redis_return_integer(redis_client_st *redis_client, const char *cmd, redis_r
 			rt = reply->integer;
 			ret = REDIS_SUCCESS;
 		}
+
 	}
 	if (rc != NULL)
 	{
 		*rc = ret;
 	}
+	freeReply(reply);
+
 	return rt;
 }
 
 char *
-redis_return_str(redis_client_st *redis_client, const char *cmd, redis_return_st *rc)
+redis_return_str(redis_client_st *redis_client, int argc, const char **argv, redis_return_st *rc)
 {
-	if (redis_client == NULL || cmd == NULL)
+	if (redis_client == NULL || argv == NULL)
 	{
 		if (rc != NULL)
 			*rc = REDIS_FAILURE;
@@ -61,7 +64,7 @@ redis_return_str(redis_client_st *redis_client, const char *cmd, redis_return_st
 	redis_return_st ret = REDIS_FAILURE;
 	redis_reply_st *reply = NULL;
 	char *val = NULL;
-	reply = redis_query(redis_client, cmd);
+	reply = redis_query_argv(redis_client, argc, argv);
 	if (reply == NULL)
 	{
 		ret = REDIS_CONNECTION_FAILURE;
@@ -88,9 +91,9 @@ redis_return_str(redis_client_st *redis_client, const char *cmd, redis_return_st
 	return val;
 }
 
-int redis_return_muti(redis_client_st *redis_client, const char *cmd, char ***elements, redis_return_st *rc)
+int redis_return_muti(redis_client_st *redis_client, int argc, const char **argv,  char ***elements, redis_return_st *rc)
 {
-	if (redis_client == NULL || cmd == NULL || elements == NULL)
+	if (redis_client == NULL || argv == NULL || elements == NULL)
 	{
 		if (rc)
 		{
@@ -100,10 +103,10 @@ int redis_return_muti(redis_client_st *redis_client, const char *cmd, char ***el
 	}
 	int len = 0;
 	char **rt = NULL;
-	;
+
 	redis_return_st ret;
 	redis_reply_st *reply = NULL;
-	reply = redis_query(redis_client, cmd);
+	reply = redis_query_argv(redis_client, argc, argv);
 	if (reply == NULL)
 	{
 		ret = REDIS_CONNECTION_FAILURE;
@@ -136,15 +139,15 @@ int redis_return_muti(redis_client_st *redis_client, const char *cmd, char ***el
 	return len;
 }
 
-redis_return_st redis_return_status(redis_client_st *redis_client, const char *cmd)
+redis_return_st redis_return_status(redis_client_st *redis_client, int argc, const char **argv)
 {
-	if (redis_client == NULL || cmd == NULL)
+	if (redis_client == NULL || argv == NULL)
 	{
 		return REDIS_FAILURE;
 	}
 	redis_return_st rc = REDIS_FAILURE;
 	redis_reply_st *reply = NULL;
-	reply = redis_query(redis_client, cmd);
+	reply = redis_query_argv(redis_client, argc, argv);
 	if (reply == NULL)
 	{
 		rc = REDIS_CONNECTION_FAILURE;
@@ -252,9 +255,10 @@ int redis_sismember(redis_client_st *redis_client, const char *key,
         return 0;
     }
     int rt = 0;
-    char *cmd = generate_key("sismember  %s %s", key, value);
-    rt = redis_return_integer(redis_client, cmd,  rc);
-    free_and_nil(cmd);
+
+    int argc  = 3;
+    const char *argv[]={"SISMEMBER", key, value};
+    rt = redis_return_integer(redis_client, argc, argv,  rc);
     return rt;
 }
 
@@ -267,9 +271,9 @@ int redis_smembers(redis_client_st *redis_client, const char *key, char ***eleme
         return -1;        
     }
     int rt = 0;
-    char *cmd = generate_key("SMEMBERS %s", key);
-    rt = redis_return_muti(redis_client, cmd, elements, rc);
-    free_and_nil(cmd);
+    int argc  = 3;
+    const char *argv[]={"SMEMBERS", key};
+    rt = redis_return_muti(redis_client, argc, argv, elements, rc);
     return rt;
 }
 
