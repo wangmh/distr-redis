@@ -43,13 +43,13 @@ static void load_config(redis_client_config_st * redis_config)
 		redis_config->minconns = 5;
 		g_clear_error(&err);
 	}
-	redis_config->redis_err_file = g_key_file_get_string(key_file, "General",
-			"redis_err_log", &err);
-	if(err)
-	{
-		redis_config->redis_err_file = strdup("/home/redis_err.log");
-		g_clear_error(&err);
-	}
+//	redis_config->redis_err_file = g_key_file_get_string(key_file, "General",
+//			"redis_err_log", &err);
+//	if(err)
+//	{
+//		redis_config->redis_err_file = strdup("/home/redis_err.log");
+//		g_clear_error(&err);
+//	}
 	redis_config->redis_log_path = g_key_file_get_string(key_file, "General",
 			"redis_log", &err);
 	if (err)
