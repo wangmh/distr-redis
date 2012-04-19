@@ -25,7 +25,7 @@ int retry_times = -1;
 if (connection_entry->rh->err ){ \
 	int retry = 0; \
 	int err = connection_entry->rh->err ;\
-	redis_log(L_ERR, "errstr is %s %s:%d n", connection_entry->rh->errstr,\
+	redis_log(L_ERR, "errstr is %d %s:%d n", connection_entry->rh->err,\
    		connection_entry->pool->host,connection_entry-> pool->port);\
    	redisFree(connection_entry->rh); \
 	while (retry_times == -1 || retry < retry_times) \
