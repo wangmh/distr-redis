@@ -271,7 +271,7 @@ int redis_smembers(redis_client_st *redis_client, const char *key, char ***eleme
         return -1;        
     }
     int rt = 0;
-    int argc  = 3;
+    int argc  = 2;
     const char *argv[]={"SMEMBERS", key};
     rt = redis_return_muti(redis_client, argc, argv, elements, rc);
     return rt;
