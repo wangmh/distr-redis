@@ -7,7 +7,7 @@
 
 #include "common.h"
 
-#define GOZAP "wangminghua@gozap.com"
+#define GOZAP "gozap@gozap.com"
 
 extern struct timeval timeout;
 
